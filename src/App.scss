@@ -4,6 +4,8 @@
 .app {
   min-height: 100vh;
   background-color: $background-color;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
@@ -11,4 +13,6 @@ main {
   max-width: $breakpoint-lg;
   margin: 0 auto;
   position: relative;
+  flex-grow: 1;
+  @include flex-center;
 }

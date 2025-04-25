@@ -4,9 +4,7 @@
 .card-grid {
   display: grid;
   grid-template-columns: repeat(4, 160px);
-  gap: $spacing-sm;
-  padding: $spacing-lg;
-  max-width: 800px;
+  gap: $spacing-md;
   margin: 0 auto;
   justify-content: center;
 
