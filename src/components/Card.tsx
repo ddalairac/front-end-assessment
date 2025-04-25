@@ -15,7 +15,7 @@ const Card = ({ id, image, isFlipped, isMatched, onClick }: CardProps) => {
       className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
       onClick={onClick}
     >
-      <div className="card-inner">
+      <div className="card-flipper">
         <div className="card-front">
           <img src={image} alt={`Card ${id}`} />
         </div>
