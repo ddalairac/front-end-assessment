@@ -8,10 +8,10 @@ interface CardProps {
   onClick: () => void;
 }
 
-const Card = ({ id, image, onClick }: CardProps) => {
+const Card = ({ id, image, isFlipped, isMatched, onClick }: CardProps) => {
   return (
     <div
-      className='card'
+      className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
       onClick={onClick}
     >
       <div className="card-inner">

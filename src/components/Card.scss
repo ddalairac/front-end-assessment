@@ -7,4 +7,53 @@
   perspective: 1000px;
   cursor: pointer;
   margin: $spacing-sm;
+
+  &-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform $card-flip-speed;
+    transform-style: preserve-3d;
+  }
+
+  &.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  &-front,
+  &-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    @include card-base;
+    @include flex-center;
+  }
+
+  &-front {
+    background-color: $white;
+    transform: rotateY(180deg);
+
+    img {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+    }
+  }
+
+  &-back {
+    background-color: $primary-color;
+    color: $white;
+    font-size: 24px;
+
+    &-content {
+      font-size: 2em;
+      font-weight: bold;
+    }
+  }
+
+  &.matched .card-inner {
+    box-shadow: 0 0 10px $secondary-color;
+  }
 }

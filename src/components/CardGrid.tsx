@@ -11,6 +11,8 @@ interface CardData {
 
 const CardGrid = () => {
   const [cards, setCards] = useState<CardData[]>([]);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [moves, setMoves] = useState(0);
 
   // Sample images - you can replace these with your own images
   const images = [
@@ -33,6 +35,8 @@ const CardGrid = () => {
     // Shuffle cards
     const shuffledCards = cardPairs.sort(() => Math.random() - 0.5);
     setCards(shuffledCards);
+    setFlippedCards([]);
+    setMoves(0);
   };
 
   useEffect(() => {
@@ -40,8 +44,44 @@ const CardGrid = () => {
   }, []);
 
   const handleCardClick = (cardId: number) => {
-    console.log(cardId);
-    // TODO: Implement card click logic
+    if (flippedCards.length === 2) return;
+    if (cards[cardId].isMatched) return;
+    if (flippedCards.includes(cardId)) return;
+
+    const newFlippedCards = [...flippedCards, cardId];
+    setFlippedCards(newFlippedCards);
+
+    const newCards = cards.map(card =>
+      card.id === cardId ? { ...card, isFlipped: true } : card
+    );
+    setCards(newCards);
+
+    if (newFlippedCards.length === 2) {
+      setMoves(moves + 1);
+      const [firstCard, secondCard] = newFlippedCards;
+
+      if (cards[firstCard].image === cards[secondCard].image) {
+        // Match found
+        setTimeout(() => {
+          setCards(cards.map(card =>
+            card.id === firstCard || card.id === secondCard
+              ? { ...card, isMatched: true }
+              : card
+          ));
+          setFlippedCards([]);
+        }, 500);
+      } else {
+        // No match
+        setTimeout(() => {
+          setCards(cards.map(card =>
+            card.id === firstCard || card.id === secondCard
+              ? { ...card, isFlipped: false }
+              : card
+          ));
+          setFlippedCards([]);
+        }, 1000);
+      }
+    }
   };
 
   return (
@@ -51,6 +91,8 @@ const CardGrid = () => {
           key={card.id}
           id={card.id}
           image={card.image}
+          isFlipped={card.isFlipped}
+          isMatched={card.isMatched}
           onClick={() => handleCardClick(card.id)}
         />
       ))}
