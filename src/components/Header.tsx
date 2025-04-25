@@ -1,11 +1,11 @@
 import './Header.scss';
 
-interface HeaderProps {
+interface IHeaderProps {
   onReset: () => void;
   moves: number;
 }
 
-const Header = ({ onReset, moves }: HeaderProps) => {
+const Header = ({ onReset, moves }: IHeaderProps) => {
   return (
     <header className="header" data-testid="game-header">
       <h1>Memory Card Game</h1>

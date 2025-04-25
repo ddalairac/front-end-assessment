@@ -1,23 +1,5 @@
 import { create } from 'zustand';
-
-interface Card {
-  id: number;
-  pairId: number;
-  image: string;
-  isFlipped: boolean;
-  isMatched: boolean;
-}
-
-interface GameState {
-  cards: Card[]; // The cards in the game
-  flippedCardsID: number[]; // The cards IDs flipped
-  moves: number; // The number of moves made
-  isGameComplete: boolean; // Whether the game is complete
-  isProcessing: boolean; // Flag to prevent clicks while processing matches
-  initializeCards: () => void; // Initialize the cards
-  flipCard: (cardId: number) => void; // Flip a card
-  resetGame: () => void; // Reset the game
-}
+import { ICard, IGameState } from '../types/game';
 
 const images = [
   'https://picsum.photos/200/200?random=1',
@@ -28,7 +10,7 @@ const images = [
   'https://picsum.photos/200/200?random=6'
 ];
 
-export const useGameStore = create<GameState>((set, get) => ({
+export const useGameStore = create<IGameState>((set, get) => ({
   // State
   cards: [],
   flippedCardsID: [],
@@ -39,7 +21,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   // Actions
   initializeCards: () => {
     // Create an array with each image appearing exactly twice
-    const cardPairs: Card[] = [];
+    const cardPairs: ICard[] = [];
 
     // For each image, create two cards with the same pairId
     images.forEach((image, idx) => {

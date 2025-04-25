@@ -1,11 +1,11 @@
 import './SuccessModal.scss';
 
-interface SuccessModalProps {
+interface ISuccessModalProps {
   moves: number;
   onPlayAgain: () => void;
 }
 
-const SuccessModal = ({ moves, onPlayAgain }: SuccessModalProps) => {
+const SuccessModal = ({ moves, onPlayAgain }: ISuccessModalProps) => {
   return (
     <div className="success-modal" data-testid="game-complete-message">
       <h2>Congratulations!</h2>

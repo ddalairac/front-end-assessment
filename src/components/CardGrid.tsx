@@ -1,20 +1,13 @@
 import Card from './Card';
 import './CardGrid.scss';
+import { ICard } from '../types/game';
 
-interface CardType {
-  id: number;
-  pairId: number;
-  image: string;
-  isFlipped: boolean;
-  isMatched: boolean;
-}
-
-interface CardGridProps {
-  cards: CardType[];
+interface ICardGridProps {
+  cards: ICard[];
   onCardFlip: (cardId: number) => void;
 }
 
-const CardGrid = ({ cards, onCardFlip }: CardGridProps) => {
+const CardGrid = ({ cards, onCardFlip }: ICardGridProps) => {
   return (
     <div className="card-grid" data-testid="card-grid">
       {cards.map((card) => (

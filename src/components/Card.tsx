@@ -1,6 +1,6 @@
 import './Card.scss';
 
-interface CardProps {
+interface ICardProps {
   id: number;
   image: string;
   isFlipped: boolean;
@@ -8,7 +8,7 @@ interface CardProps {
   onClick: () => void;
 }
 
-const Card = ({ id, image, isFlipped, isMatched, onClick }: CardProps) => {
+const Card = ({ id, image, isFlipped, isMatched, onClick }: ICardProps) => {
   return (
     <div
       data-testid={`card-${id}`}
