@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import CardGrid from './components/CardGrid';
+import SuccessModal from './components/SuccessModal';
 import { useGameStore } from './store/gameStore';
 import './App.scss';
 
@@ -12,11 +13,7 @@ function App() {
       <main>
         <CardGrid />
         {isGameComplete && (
-          <div className="game-complete" data-testid="game-complete-message">
-            <h2>Congratulations!</h2>
-            <p>You completed the game in {moves} moves.</p>
-            <button onClick={resetGame} data-testid="play-again-button">Play Again</button>
-          </div>
+          <SuccessModal moves={moves} onPlayAgain={resetGame} />
         )}
       </main>
     </div>
