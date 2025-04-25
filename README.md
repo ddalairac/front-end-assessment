@@ -16,6 +16,8 @@ This project is a challenge designed for the Zicasso evaluation process.
 - **Sass**: CSS preprocessor for styling
 - **Zustand**: State management library for handling game state
 - **gh-pages**: For easy deployment to GitHub Pages
+- **Vitest**: Test runner and framework optimized for Vite projects
+- **React Testing Library**: Utility for rendering and testing React components from a user perspective (render, screen, fireEvent)
 
 
 ## Architecture
@@ -50,3 +52,12 @@ The game is deployed to GitHub Pages using the gh-pages package:
 npm run deploy
 ```
 
+
+## Unit Testing
+
+The project includes comprehensive unit tests for all components.
+
+```bash
+# Run unit testing
+npm run test
+```

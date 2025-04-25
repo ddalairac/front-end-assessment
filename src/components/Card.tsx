@@ -11,6 +11,7 @@ interface CardProps {
 const Card = ({ id, image, isFlipped, isMatched, onClick }: CardProps) => {
   return (
     <div
+      data-testid={`card-${id}`}
       className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
       onClick={onClick}
     >

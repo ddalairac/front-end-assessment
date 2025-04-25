@@ -11,7 +11,7 @@ const CardGrid = () => {
   }, [initializeCards]);
 
   return (
-    <div className="card-grid">
+    <div className="card-grid" data-testid="card-grid">
       {cards.map((card) => (
         <Card
           key={card.id}
