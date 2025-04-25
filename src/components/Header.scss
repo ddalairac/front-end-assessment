@@ -28,7 +28,7 @@
   .reset-button {
     @include button-base;
     background-color: $white;
-    color: $primary-color;
+    color: $text-color;
 
     &:hover {
       background-color: color.adjust($white, $lightness: -5%);

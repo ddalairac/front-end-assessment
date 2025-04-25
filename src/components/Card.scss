@@ -10,6 +10,7 @@
   border: 6px solid transparent;
   border-radius: 10px;
   transition: border $transition-speed;
+  user-select: none;
 
   &-flipper {
     position: relative;
@@ -66,6 +67,6 @@
   }
 
   &.matched {
-    border-color: $secondary-color;
+    border-color: $success-color;
   }
 }
