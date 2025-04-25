@@ -8,4 +8,11 @@ export default defineConfig({
     open: true,
   },
   plugins: [react()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+      }
+    }
+  }
 })
