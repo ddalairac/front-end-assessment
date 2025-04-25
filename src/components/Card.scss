@@ -2,11 +2,11 @@
 @use '../styles/mixins' as *;
 
 .card {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   perspective: 1000px;
   cursor: pointer;
-  margin: $spacing-sm;
+  margin: 0;
   border: 6px solid transparent;
   border-radius: 10px;
   transition: border $transition-speed;

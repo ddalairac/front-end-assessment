@@ -3,18 +3,18 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 120px);
-  gap: $spacing-md;
+  grid-template-columns: repeat(4, 160px);
+  gap: $spacing-sm;
   padding: $spacing-lg;
   max-width: 800px;
   margin: 0 auto;
   justify-content: center;
 
   @include responsive(md) {
-    grid-template-columns: repeat(3, 120px);
+    grid-template-columns: repeat(3, 160px);
   }
 
   @include responsive(sm) {
-    grid-template-columns: repeat(2, 120px);
+    grid-template-columns: repeat(2, 160px);
   }
 }
