@@ -10,4 +10,38 @@ main {
   padding: $spacing-lg;
   max-width: $breakpoint-lg;
   margin: 0 auto;
+  position: relative;
+}
+
+.game-complete {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $white;
+  padding: $spacing-lg;
+  border-radius: 8px;
+  box-shadow: $shadow-md;
+  text-align: center;
+  z-index: 1000;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    margin-bottom: $spacing-md;
+    color: $text-color;
+  }
+
+  button {
+    @include button-base;
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
 }
