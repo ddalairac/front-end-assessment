@@ -7,7 +7,8 @@
   perspective: 1000px;
   cursor: pointer;
   margin: $spacing-sm;
-  border: 10px solid transparent;
+  border: 6px solid transparent;
+  border-radius: 10px;
   transition: border $transition-speed;
 
   &-flipper {
@@ -66,6 +67,5 @@
 
   &.matched {
     border-color: $secondary-color;
-    border-radius: 14px;
   }
 }

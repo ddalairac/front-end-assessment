@@ -1,15 +1,20 @@
-import { useEffect } from 'react';
 import Card from './Card';
-import { useGameStore } from '../store/gameStore';
 import './CardGrid.scss';
 
-const CardGrid = () => {
-  const { cards, flipCard, initializeCards } = useGameStore();
+interface CardType {
+  id: number;
+  pairId: number;
+  image: string;
+  isFlipped: boolean;
+  isMatched: boolean;
+}
 
-  useEffect(() => {
-    initializeCards();
-  }, [initializeCards]);
+interface CardGridProps {
+  cards: CardType[];
+  onCardFlip: (cardId: number) => void;
+}
 
+const CardGrid = ({ cards, onCardFlip }: CardGridProps) => {
   return (
     <div className="card-grid" data-testid="card-grid">
       {cards.map((card) => (
@@ -19,7 +24,7 @@ const CardGrid = () => {
           image={card.image}
           isFlipped={card.isFlipped}
           isMatched={card.isMatched}
-          onClick={() => flipCard(card.id)}
+          onClick={() => onCardFlip(card.id)}
         />
       ))}
     </div>

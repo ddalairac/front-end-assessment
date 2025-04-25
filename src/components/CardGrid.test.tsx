@@ -1,12 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CardGrid from './CardGrid';
-import { useGameStore } from '../store/gameStore';
-
-// Mock the Zustand store
-vi.mock('../store/gameStore', () => ({
-  useGameStore: vi.fn()
-}));
 
 describe('CardGrid Component', () => {
   const mockCards = [
@@ -16,28 +10,25 @@ describe('CardGrid Component', () => {
     { id: 4, image: 'image2.jpg', isFlipped: false, isMatched: false, pairId: 1 }
   ];
 
-  const mockFlipCard = vi.fn();
-  const mockInitializeCards = vi.fn();
+  const mockOnCardFlip = vi.fn();
 
-  beforeEach(() => {
-    vi.resetAllMocks();
-    // @ts-expect-error - we are mocking the hook
-    useGameStore.mockReturnValue({
-      cards: mockCards,
-      flipCard: mockFlipCard,
-      initializeCards: mockInitializeCards
-    });
-  });
-
-  it('renders all cards from the store', () => {
-    render(<CardGrid />);
+  it('renders all cards from props', () => {
+    render(<CardGrid cards={mockCards} onCardFlip={mockOnCardFlip} />);
     expect(screen.getByTestId('card-grid')).toBeInTheDocument();
     // Should render 4 cards
     expect(screen.getAllByRole('img')).toHaveLength(4);
   });
 
-  it('calls initializeCards on component mount', () => {
-    render(<CardGrid />);
-    expect(mockInitializeCards).toHaveBeenCalledTimes(1);
+  it('calls onCardFlip when a card is clicked', () => {
+    render(<CardGrid cards={mockCards} onCardFlip={mockOnCardFlip} />);
+
+    // Seleccionamos específicamente la primera tarjeta por su data-testid
+    const firstCard = screen.getByTestId('card-1');
+
+    // Hacemos clic en la tarjeta
+    fireEvent.click(firstCard);
+
+    // Verificamos que se haya llamado a onCardFlip con el ID correcto
+    expect(mockOnCardFlip).toHaveBeenCalledWith(1);
   });
 });

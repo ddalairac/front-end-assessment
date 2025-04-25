@@ -36,6 +36,7 @@ describe('App Component', () => {
     expect(screen.getByTestId('memory-game-app')).toBeInTheDocument();
     expect(screen.getByTestId('game-header')).toBeInTheDocument();
     expect(screen.getByTestId('card-grid')).toBeInTheDocument();
+    expect(mockInitializeCards).toHaveBeenCalledTimes(1);
   });
 
   it('displays game complete message when game is finished', () => {
