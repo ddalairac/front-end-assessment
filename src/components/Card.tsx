@@ -29,7 +29,14 @@ const Card = ({ id, image, isFlipped, isMatched, onClick }: ICardProps) => {
     >
       <div className="card-flipper">
         <div className="card-front">
-          <img src={image} alt={`Card ${id}`} />
+          <img
+            src={image}
+            alt={`Card ${id}`}
+            width={200}
+            height={200}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
         <div className="card-back">
           <div className="card-back-content">?</div>

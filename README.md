@@ -8,17 +8,19 @@ This project is a challenge designed for the Zicasso evaluation process.
 ## Dependencies
 
 ### Original Dependencies (from fork)
+
 - **React**
 - **TypeScript**
 - **Vite**
 
 ### Added Dependencies
+
 - **Sass**: CSS preprocessor for styling
 - **Zustand**: State management library for handling game state
 - **gh-pages**: For easy deployment to GitHub Pages
 - **Vitest**: Test runner and framework optimized for Vite projects
 - **React Testing Library**: Utility for rendering and testing React components from a user perspective (render, screen, fireEvent)
-
+- **Terser**: JavaScript minifier for better production builds
 
 ## Architecture
 
@@ -30,10 +32,9 @@ This project implements a clean architecture based on:
 
 This separation of concerns makes the codebase more maintainable, testable, and easier to understand.
 
-
 ## Development
 
-To run the project locally:
+Run the project locally:
 
 ```bash
 # Install dependencies
@@ -41,6 +42,16 @@ npm install
 
 # Start development server
 npm run start
+```
+
+Run produccion build locally:
+
+```bash
+# Build aplication
+npm run build
+
+# Server from build
+npm run preview
 ```
 
 ## Deployment
@@ -52,11 +63,9 @@ The game is deployed to GitHub Pages using the gh-pages package:
 npm run deploy
 ```
 
-
 ## Unit Testing
 
-The project includes comprehensive unit tests for all components.
-
+Run unit tests
 
 ```bash
 # To run the tests:
