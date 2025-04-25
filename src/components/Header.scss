@@ -1,0 +1,37 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+@use 'sass:color';
+
+.header {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-sm;
+  text-align: center;
+  box-shadow: $shadow-sm;
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  &-controls {
+    @include flex-center;
+    gap: $spacing-sm;
+    margin-top: $spacing-sm;
+  }
+
+  .moves {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .reset-button {
+    @include button-base;
+    background-color: $white;
+    color: $primary-color;
+
+    &:hover {
+      background-color: color.adjust($white, $lightness: -5%);
+    }
+  }
+}

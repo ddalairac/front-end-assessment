@@ -1,0 +1,33 @@
+@use 'sass:color';
+@use 'variables' as *;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+}
+
+@mixin card-base {
+  border-radius: 8px;
+  box-shadow: $shadow-md;
+  transition: transform $card-flip-speed;
+}
+
+@mixin button-base {
+  border: none;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color $transition-speed;
+}

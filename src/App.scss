@@ -1,0 +1,13 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+
+.app {
+  min-height: 100vh;
+  background-color: $background-color;
+}
+
+main {
+  padding: $spacing-lg;
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+}

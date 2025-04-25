@@ -1,0 +1,27 @@
+@use 'sass:color';
+
+// Colors
+$primary-color: #2196f3;
+$secondary-color: #4caf50;
+$background-color: #f5f5f5;
+$white: #fff;
+$text-color: #333;
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+
+// Breakpoints
+$breakpoint-sm: 400px;
+$breakpoint-md: 600px;
+$breakpoint-lg: 800px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-speed: 0.3s;
+$card-flip-speed: 0.6s;

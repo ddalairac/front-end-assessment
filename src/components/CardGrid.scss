@@ -1,0 +1,19 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+
+  @include responsive(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include responsive(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

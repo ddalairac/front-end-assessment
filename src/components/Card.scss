@@ -1,0 +1,10 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.card {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+  cursor: pointer;
+  margin: $spacing-sm;
+}
