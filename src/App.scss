@@ -1,5 +1,6 @@
 @use './styles/variables' as *;
 @use './styles/mixins' as *;
+@use 'sass:color';
 
 .app {
   min-height: 100vh;
@@ -41,7 +42,7 @@ main {
     color: $white;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color.adjust($primary-color, $lightness: -10%);
     }
   }
 }
