@@ -55,9 +55,17 @@ npm run deploy
 
 ## Unit Testing
 
-The project includes comprehensive unit tests for all components.
+The project includes comprehensive unit tests for all components:
+
+- **Card Component Tests**: Verify rendering, class application based on props, and click handlers
+- **CardGrid Component Tests**: Validate proper initialization and rendering of cards from the store
+- **Header Component Tests**: Check for proper display of game state and interaction with reset functionality
+- **App Component Tests**: Ensure correct rendering of child components and game completion logic
+
+Tests follow the Testing Library philosophy of testing components as users would interact with them, not implementation details.
+
+To run the tests:
 
 ```bash
-# Run unit testing
 npm run test
 ```

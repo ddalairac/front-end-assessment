@@ -7,15 +7,15 @@ function App() {
   const { moves, resetGame, isGameComplete } = useGameStore();
 
   return (
-    <div className="app">
+    <div className="app" data-testid="memory-game-app">
       <Header onReset={resetGame} moves={moves} />
       <main>
         <CardGrid />
         {isGameComplete && (
-          <div className="game-complete">
+          <div className="game-complete" data-testid="game-complete-message">
             <h2>¡Felicidades!</h2>
             <p>Has completado el juego en {moves} movimientos.</p>
-            <button onClick={resetGame}>Jugar de nuevo</button>
+            <button onClick={resetGame} data-testid="play-again-button">Jugar de nuevo</button>
           </div>
         )}
       </main>
