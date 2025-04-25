@@ -2,19 +2,20 @@ import { create } from 'zustand';
 
 interface Card {
   id: number;
+  pairId: number;
   image: string;
   isFlipped: boolean;
   isMatched: boolean;
 }
 
 interface GameState {
-  cards: Card[];
-  flippedCards: number[];
-  moves: number;
-  isGameComplete: boolean;
-  initializeCards: () => void;
-  flipCard: (cardId: number) => void;
-  resetGame: () => void;
+  cards: Card[]; // The cards in the game
+  flippedCardsID: number[]; // The cards IDs flipped
+  moves: number; // The number of moves made
+  isGameComplete: boolean; // Whether the game is complete
+  initializeCards: () => void; // Initialize the cards
+  flipCard: (cardId: number) => void; // Flip a card
+  resetGame: () => void; // Reset the game
 }
 
 const images = [
@@ -27,51 +28,100 @@ const images = [
 ];
 
 export const useGameStore = create<GameState>((set, get) => ({
+  // State
   cards: [],
-  flippedCards: [],
+  flippedCardsID: [],
   moves: 0,
   isGameComplete: false,
 
+  // Actions
   initializeCards: () => {
-    const cardPairs = [...images, ...images].map((image, index) => ({
-      id: index,
-      image,
-      isFlipped: false,
-      isMatched: false,
-    }));
+    // Create an array with each image appearing exactly twice
+    const cardPairs: Card[] = [];
 
-    const shuffledCards = cardPairs.sort(() => Math.random() - 0.5);
-    set({ cards: shuffledCards, flippedCards: [], moves: 0, isGameComplete: false });
+    // For each image, create two cards with the same pairId
+    images.forEach((image, idx) => {
+      // First card of the pair
+      cardPairs.push({
+        id: cardPairs.length,
+        pairId: idx,
+        image,
+        isFlipped: false,
+        isMatched: false
+      });
+
+      // Second card of the pair with the same pairId
+      cardPairs.push({
+        id: cardPairs.length,
+        pairId: idx,
+        image,
+        isFlipped: false,
+        isMatched: false
+      });
+    });
+
+    // Shuffle the cards
+    const shuffledCards = [...cardPairs].sort(() => Math.random() - 0.5);
+
+    // Set the state
+    set({ cards: shuffledCards, flippedCardsID: [], moves: 0, isGameComplete: false });
   },
 
   flipCard: (cardId: number) => {
-    const { cards, flippedCards, moves } = get();
+    const { cards, flippedCardsID, moves } = get();
 
-    // Prevent flipping if:
-    if (flippedCards.length === 2) return; // Already have 2 cards flipped
-    if (cards[cardId].isMatched) return; // Card is already matched
-    if (flippedCards.includes(cardId)) return; // Card is already flipped
+    // Get the card being clicked
+    const clickedCard = cards.find(card => card.id === cardId);
+    if (!clickedCard) return; // Safety check
 
-    const newFlippedCards = [...flippedCards, cardId];
+    // Only these conditions should prevent flipping:
+    if (clickedCard.isFlipped) return; // Card is already flipped
+    if (clickedCard.isMatched) return; // Card is already matched
+    if (flippedCardsID.length >= 2) return; // Already have 2 cards flipped
+
+    // Flip the clicked card
     const newCards = cards.map(card =>
       card.id === cardId ? { ...card, isFlipped: true } : card
     );
 
-    set({ cards: newCards, flippedCards: newFlippedCards });
+    // Add card ID to flipped cards array
+    const newFlippedCardsID = [...flippedCardsID, cardId];
 
-    if (newFlippedCards.length === 2) {
+    // Update state
+    set({ cards: newCards, flippedCardsID: newFlippedCardsID });
+
+    // Check for potential match only if we have 2 cards flipped
+    if (newFlippedCardsID.length === 2) {
       set({ moves: moves + 1 });
-      const [firstCard, secondCard] = newFlippedCards;
 
-      if (cards[firstCard].image === cards[secondCard].image) {
+      // Get the actual card objects, not just their IDs
+      const firstCardId = newFlippedCardsID[0];
+      const secondCardId = newFlippedCardsID[1];
+
+      const firstCard = cards.find(card => card.id === firstCardId);
+      const secondCard = cards.find(card => card.id === secondCardId);
+
+      if (!firstCard || !secondCard) return; // Safety check
+
+      console.log({
+        is_match: firstCard.pairId === secondCard.pairId,
+        pairId1: firstCard.pairId,
+        pairId2: secondCard.pairId,
+        id1: firstCard.id,
+        id2: secondCard.id
+      });
+
+      if (firstCard.pairId === secondCard.pairId) {
         // Match found
         setTimeout(() => {
-          const updatedCards = cards.map(card =>
-            card.id === firstCard || card.id === secondCard
-              ? { ...card, isMatched: true }
-              : card
-          );
-          set({ cards: updatedCards, flippedCards: [] });
+          const updatedCards = cards.map(card => {
+            if (card.id === firstCardId || card.id === secondCardId) {
+              return { ...card, isMatched: true, isFlipped: true };
+            }
+            return card;
+          });
+
+          set({ cards: updatedCards, flippedCardsID: [] });
 
           // Check if game is complete
           const isComplete = updatedCards.every(card => card.isMatched);
@@ -82,12 +132,14 @@ export const useGameStore = create<GameState>((set, get) => ({
       } else {
         // No match
         setTimeout(() => {
-          const updatedCards = cards.map(card =>
-            card.id === firstCard || card.id === secondCard
-              ? { ...card, isFlipped: false }
-              : card
-          );
-          set({ cards: updatedCards, flippedCards: [] });
+          const updatedCards = cards.map(card => {
+            if (card.id === firstCardId || card.id === secondCardId) {
+              return { ...card, isFlipped: false };
+            }
+            return card;
+          });
+
+          set({ cards: updatedCards, flippedCardsID: [] });
         }, 1000);
       }
     }
