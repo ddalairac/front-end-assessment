@@ -9,11 +9,23 @@ interface ICardProps {
 }
 
 const Card = ({ id, image, isFlipped, isMatched, onClick }: ICardProps) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
   return (
     <div
       data-testid={`card-${id}`}
       className={`card ${isFlipped ? 'flipped' : ''} ${isMatched ? 'matched' : ''}`}
       onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={isFlipped ? -1 : 0}
+      aria-label={`Card ${id}`}
+      aria-disabled={isMatched}
     >
       <div className="card-flipper">
         <div className="card-front">
