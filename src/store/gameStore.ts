@@ -13,6 +13,7 @@ interface GameState {
   flippedCardsID: number[]; // The cards IDs flipped
   moves: number; // The number of moves made
   isGameComplete: boolean; // Whether the game is complete
+  isProcessing: boolean; // Flag to prevent clicks while processing matches
   initializeCards: () => void; // Initialize the cards
   flipCard: (cardId: number) => void; // Flip a card
   resetGame: () => void; // Reset the game
@@ -33,6 +34,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   flippedCardsID: [],
   moves: 0,
   isGameComplete: false,
+  isProcessing: false,
 
   // Actions
   initializeCards: () => {
@@ -64,11 +66,20 @@ export const useGameStore = create<GameState>((set, get) => ({
     const shuffledCards = [...cardPairs].sort(() => Math.random() - 0.5);
 
     // Set the state
-    set({ cards: shuffledCards, flippedCardsID: [], moves: 0, isGameComplete: false });
+    set({
+      cards: shuffledCards,
+      flippedCardsID: [],
+      moves: 0,
+      isGameComplete: false,
+      isProcessing: false
+    });
   },
 
   flipCard: (cardId: number) => {
-    const { cards, flippedCardsID, moves } = get();
+    const { cards, flippedCardsID, moves, isProcessing } = get();
+
+    // Prevent any card flipping if currently processing a match
+    if (isProcessing) return;
 
     // Get the card being clicked
     const clickedCard = cards.find(card => card.id === cardId);
@@ -92,7 +103,8 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     // Check for potential match only if we have 2 cards flipped
     if (newFlippedCardsID.length === 2) {
-      set({ moves: moves + 1 });
+      // Set processing flag to prevent further clicks
+      set({ moves: moves + 1, isProcessing: true });
 
       // Get the actual card objects, not just their IDs
       const firstCardId = newFlippedCardsID[0];
@@ -101,15 +113,11 @@ export const useGameStore = create<GameState>((set, get) => ({
       const firstCard = cards.find(card => card.id === firstCardId);
       const secondCard = cards.find(card => card.id === secondCardId);
 
-      if (!firstCard || !secondCard) return; // Safety check
-
-      console.log({
-        is_match: firstCard.pairId === secondCard.pairId,
-        pairId1: firstCard.pairId,
-        pairId2: secondCard.pairId,
-        id1: firstCard.id,
-        id2: secondCard.id
-      });
+      if (!firstCard || !secondCard) {
+        // If cards not found, reset processing state
+        set({ isProcessing: false });
+        return;
+      }
 
       if (firstCard.pairId === secondCard.pairId) {
         // Match found
@@ -121,7 +129,11 @@ export const useGameStore = create<GameState>((set, get) => ({
             return card;
           });
 
-          set({ cards: updatedCards, flippedCardsID: [] });
+          set({
+            cards: updatedCards,
+            flippedCardsID: [],
+            isProcessing: false // Allow clicks again
+          });
 
           // Check if game is complete
           const isComplete = updatedCards.every(card => card.isMatched);
@@ -139,7 +151,11 @@ export const useGameStore = create<GameState>((set, get) => ({
             return card;
           });
 
-          set({ cards: updatedCards, flippedCardsID: [] });
+          set({
+            cards: updatedCards,
+            flippedCardsID: [],
+            isProcessing: false // Allow clicks again
+          });
         }, 1000);
       }
     }
