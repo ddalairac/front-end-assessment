@@ -1,13 +1,22 @@
 @use 'sass:color';
 @use 'variables' as *;
 
+/* These mixins may be an overkill given the number of times they are used,
+but they are only to demonstrate their implementation. */
+
 @mixin responsive($breakpoint) {
   @if $breakpoint == sm {
-    @media (max-width: $breakpoint-sm) { @content; }
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
   } @else if $breakpoint == md {
-    @media (max-width: $breakpoint-md) { @content; }
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
   } @else if $breakpoint == lg {
-    @media (max-width: $breakpoint-lg) { @content; }
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
   }
 }
 

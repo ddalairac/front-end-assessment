@@ -2,13 +2,21 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  // Prevents browsers from synthesizing fake bold or italic fonts when those font faces are not available
   font-synthesis: none;
+
+  // Optimizes text rendering for legibility rather than rendering speed or geometric precision
   text-rendering: optimizeLegibility;
+
+  // Enables font smoothing for WebKit/Blink browsers (Chrome, Safari, Edge) for cleaner, thinner text
   -webkit-font-smoothing: antialiased;
+
+  // Enables font smoothing for Firefox on macOS for consistent cross-browser appearance
   -moz-osx-font-smoothing: grayscale;
+
   box-sizing: border-box;
 }
-
 
 body {
   margin: 0;
