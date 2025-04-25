@@ -13,9 +13,9 @@ function App() {
         <CardGrid />
         {isGameComplete && (
           <div className="game-complete" data-testid="game-complete-message">
-            <h2>¡Felicidades!</h2>
-            <p>Has completado el juego en {moves} movimientos.</p>
-            <button onClick={resetGame} data-testid="play-again-button">Jugar de nuevo</button>
+            <h2>Congratulations!</h2>
+            <p>You completed the game in {moves} moves.</p>
+            <button onClick={resetGame} data-testid="play-again-button">Play Again</button>
           </div>
         )}
       </main>

@@ -12,7 +12,7 @@ describe('App Component', () => {
   const mockResetGame = vi.fn();
   const mockFlipCard = vi.fn();
   const mockInitializeCards = vi.fn();
-  // Define el tipo de mockCards según la interfaz Card
+  // Define the type of mockCards according to the Card interface
   const mockCards: { id: number; image: string; isFlipped: boolean; isMatched: boolean; pairId: number }[] = [];
 
   beforeEach(() => {
@@ -53,8 +53,8 @@ describe('App Component', () => {
     render(<App />);
 
     expect(screen.getByTestId('game-complete-message')).toBeInTheDocument();
-    expect(screen.getByText('¡Felicidades!')).toBeInTheDocument();
-    expect(screen.getByText('Has completado el juego en 10 movimientos.')).toBeInTheDocument();
+    expect(screen.getByText('Congratulations!')).toBeInTheDocument();
+    expect(screen.getByText('You completed the game in 10 moves.')).toBeInTheDocument();
   });
 
   it('calls resetGame when play again button is clicked', () => {
