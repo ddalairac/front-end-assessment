@@ -40,8 +40,9 @@ const canFlipCard = (card: ICard, flippedCardsID: number[], isProcessing: boolea
  * @param secondCardId - ID of the second card
  * @param set - STORE Set function
  * @param timerInterval - Timer interval
+ * @param setTimerInterval - Function to update timerInterval
  */
-const handleMatch = (cards: ICard[], firstCardId: number, secondCardId: number, set: any, timerInterval: number | undefined) => {
+const handleMatch = (cards: ICard[], firstCardId: number, secondCardId: number, set: any, timerInterval: number | undefined, setTimerInterval: (interval: number | undefined) => void) => {
   setTimeout(() => {
     const updatedCards = cards.map(card => {
       if (card.id === firstCardId || card.id === secondCardId) {
@@ -59,7 +60,7 @@ const handleMatch = (cards: ICard[], firstCardId: number, secondCardId: number, 
     // Check if game is complete
     const isComplete = updatedCards.every(card => card.isMatched);
     if (isComplete) {
-      stopTimer(set, timerInterval);
+      stopTimer(set, timerInterval, setTimerInterval);
       set({ isGameComplete: true });
     }
   }, 500);
@@ -94,16 +95,17 @@ const handleNoMatch = (cards: ICard[], firstCardId: number, secondCardId: number
  * Start the timer
  * @param get - STORE Get function
  * @param set - STORE Set function
- * @param timerInterval - Timer interval
+ * @param setTimerInterval - Function to update timerInterval
  * @param rawSeconds - Raw seconds
  */
-const startTimer = (get: () => IGameState, set: any, timerInterval: number | undefined, rawSeconds: number) => {
+const startTimer = (get: () => IGameState, set: any, setTimerInterval: (interval: number | undefined) => void, rawSeconds: number) => {
   if (!get().isTimerRunning) {
     set({ isTimerRunning: true });
-    timerInterval = window.setInterval(() => {
+    const interval = window.setInterval(() => {
       rawSeconds += 1;
       set({ timeElapsed: formatTime(rawSeconds) });
     }, 1000);
+    setTimerInterval(interval);
   }
 };
 
@@ -111,10 +113,12 @@ const startTimer = (get: () => IGameState, set: any, timerInterval: number | und
  * Stop the timer
  * @param set - STORE Set function
  * @param timerInterval - Timer interval
+ * @param setTimerInterval - Function to update timerInterval
  */
-const stopTimer = (set: any, timerInterval: number | undefined) => {
+const stopTimer = (set: any, timerInterval: number | undefined, setTimerInterval: (interval: number | undefined) => void) => {
   if (timerInterval) {
     window.clearInterval(timerInterval);
+    setTimerInterval(undefined);
     set({ isTimerRunning: false });
   }
 };
@@ -124,6 +128,10 @@ export const useGameStore = create<IGameState>((set, get) => {
   // This is out of state to avoid triggering changes
   let timerInterval: number | undefined;
   let rawSeconds = 0;
+
+  const setTimerInterval = (interval: number | undefined) => {
+    timerInterval = interval;
+  };
 
   return {
     // State
@@ -137,7 +145,7 @@ export const useGameStore = create<IGameState>((set, get) => {
 
     // Actions
     initializeGame: () => {
-      stopTimer(set, timerInterval);
+      stopTimer(set, timerInterval, setTimerInterval);
       rawSeconds = 0;
 
       // Array with each image appearing exactly twice
@@ -179,7 +187,6 @@ export const useGameStore = create<IGameState>((set, get) => {
       });
     },
 
-
     resetGame: () => {
       get().initializeGame();
     },
@@ -189,7 +196,7 @@ export const useGameStore = create<IGameState>((set, get) => {
 
       // Start timer on first card flip if not already running
       if (!isTimerRunning) {
-        startTimer(get, set, timerInterval, rawSeconds);
+        startTimer(get, set, setTimerInterval, rawSeconds);
       }
 
       // Get the card being clicked
@@ -224,7 +231,7 @@ export const useGameStore = create<IGameState>((set, get) => {
         }
 
         if (firstCard.pairId === secondCard.pairId) {
-          handleMatch(cards, firstCardId, secondCardId, set, timerInterval);
+          handleMatch(cards, firstCardId, secondCardId, set, timerInterval, setTimerInterval);
         } else {
           handleNoMatch(cards, firstCardId, secondCardId, set);
         }
