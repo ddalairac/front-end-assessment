@@ -5,7 +5,8 @@ import Header from './Header';
 describe('Header Component', () => {
   const defaultProps = {
     onReset: vi.fn(),
-    moves: 5
+    moves: 5,
+    timeElapsed: 0
   };
 
   it('renders the title correctly', () => {
