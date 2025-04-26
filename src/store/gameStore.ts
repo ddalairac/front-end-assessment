@@ -10,9 +10,16 @@ const images = [
   'https://picsum.photos/200/200?random=6'
 ];
 
+const formatTime = (seconds: number): string => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+};
+
 export const useGameStore = create<IGameState>((set, get) => {
   // It is out of state to avoid triggering changes
   let timerInterval: number | undefined;
+  let rawSeconds = 0;
 
   return {
     // State
@@ -21,7 +28,7 @@ export const useGameStore = create<IGameState>((set, get) => {
     moves: 0,
     isGameComplete: false,
     isProcessing: false,
-    timeElapsed: 0,
+    timeElapsed: '0:00',
     isTimerRunning: false,
 
     // Actions
@@ -29,7 +36,8 @@ export const useGameStore = create<IGameState>((set, get) => {
       if (!get().isTimerRunning) {
         set({ isTimerRunning: true });
         timerInterval = window.setInterval(() => {
-          set(state => ({ timeElapsed: state.timeElapsed + 1 }));
+          rawSeconds += 1;
+          set({ timeElapsed: formatTime(rawSeconds) });
         }, 1000);
       }
     },
@@ -44,6 +52,7 @@ export const useGameStore = create<IGameState>((set, get) => {
     initializeCards: () => {
       const { stopTimer } = get();
       stopTimer();
+      rawSeconds = 0;
 
       // Create an array with each image appearing exactly twice
       const cardPairs: ICard[] = [];
@@ -79,7 +88,7 @@ export const useGameStore = create<IGameState>((set, get) => {
         moves: 0,
         isGameComplete: false,
         isProcessing: false,
-        timeElapsed: 0,
+        timeElapsed: '0:00',
         isTimerRunning: false
       });
     },

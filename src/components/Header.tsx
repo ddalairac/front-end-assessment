@@ -3,14 +3,8 @@ import './Header.scss';
 interface IHeaderProps {
   onReset: () => void;
   moves: number;
-  timeElapsed: number;
+  timeElapsed: string;
 }
-
-const formatTime = (seconds: number): string => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-};
 
 const Header = ({ onReset, moves, timeElapsed }: IHeaderProps) => {
   return (
@@ -21,7 +15,7 @@ const Header = ({ onReset, moves, timeElapsed }: IHeaderProps) => {
           Moves: {moves}
         </span>
         <span className='moves' data-testid='time-counter'>
-          Time: {formatTime(timeElapsed)}
+          Time: {timeElapsed}
         </span>
         <button
           className='reset-button'

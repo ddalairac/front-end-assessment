@@ -6,7 +6,7 @@ describe('Header Component', () => {
   const defaultProps = {
     onReset: vi.fn(),
     moves: 5,
-    timeElapsed: 0
+    timeElapsed: '0:00'
   };
 
   it('renders the title correctly', () => {

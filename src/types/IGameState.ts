@@ -6,7 +6,7 @@ export interface IGameState {
   moves: number;
   isGameComplete: boolean;
   isProcessing: boolean; // to prevent flipping while processing
-  timeElapsed: number; // display time in seconds
+  timeElapsed: string; // display time in seconds
   isTimerRunning: boolean; // to prevent starting multiple timers
   initializeCards: () => void;
   flipCard: (cardId: number) => void;

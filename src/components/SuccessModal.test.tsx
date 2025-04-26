@@ -6,7 +6,7 @@ describe('SuccessModal Component', () => {
   const mockOnPlayAgain = vi.fn();
 
   it('renders the success message with moves', () => {
-    render(<SuccessModal moves={10} timeElapsed={60} onPlayAgain={mockOnPlayAgain} />);
+    render(<SuccessModal moves={10} timeElapsed="1:00" onPlayAgain={mockOnPlayAgain} />);
     expect(screen.getByTestId('game-complete-message')).toBeInTheDocument();
     expect(screen.getByText('Congratulations!')).toBeInTheDocument();
     expect(screen.getByText('You completed the game in 10 moves.')).toBeInTheDocument();
@@ -14,7 +14,7 @@ describe('SuccessModal Component', () => {
   });
 
   it('calls onPlayAgain when play again button is clicked', () => {
-    render(<SuccessModal moves={10} timeElapsed={60} onPlayAgain={mockOnPlayAgain} />);
+    render(<SuccessModal moves={10} timeElapsed="1:00" onPlayAgain={mockOnPlayAgain} />);
     fireEvent.click(screen.getByTestId('play-again-button'));
     expect(mockOnPlayAgain).toHaveBeenCalledTimes(1);
   });
