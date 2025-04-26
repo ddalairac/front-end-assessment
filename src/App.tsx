@@ -12,14 +12,14 @@ function App() {
     resetGame,
     isGameComplete,
     flipCard,
-    initializeCards,
+    initializeGame,
     timeElapsed,
   } = useGameStore();
 
   useEffect(() => {
     // Initialize cards when component mounts
-    initializeCards();
-  }, [initializeCards]);
+    initializeGame();
+  }, [initializeGame]);
 
   return (
     <div className='app' data-testid='memory-game-app'>

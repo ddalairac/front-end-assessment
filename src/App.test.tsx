@@ -27,7 +27,7 @@ describe('App Component', () => {
       resetGame: mockResetGame,
       isGameComplete: false,
       flipCard: mockFlipCard,
-      initializeCards: mockInitializeCards,
+      initializeGame: mockInitializeCards,
       flippedCardsID: []
     });
 
@@ -47,7 +47,7 @@ describe('App Component', () => {
       resetGame: mockResetGame,
       isGameComplete: true,
       flipCard: mockFlipCard,
-      initializeCards: mockInitializeCards,
+      initializeGame: mockInitializeCards,
       flippedCardsID: []
     });
 
@@ -66,7 +66,7 @@ describe('App Component', () => {
       resetGame: mockResetGame,
       isGameComplete: true,
       flipCard: mockFlipCard,
-      initializeCards: mockInitializeCards,
+      initializeGame: mockInitializeCards,
       flippedCardsID: []
     });
 
@@ -84,7 +84,7 @@ describe('App Component', () => {
       resetGame: mockResetGame,
       isGameComplete: false,
       flipCard: mockFlipCard,
-      initializeCards: mockInitializeCards,
+      initializeGame: mockInitializeCards,
       flippedCardsID: []
     });
 
