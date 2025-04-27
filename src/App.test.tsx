@@ -48,14 +48,22 @@ describe('App Component', () => {
       isGameComplete: true,
       flipCard: mockFlipCard,
       initializeGame: mockInitializeCards,
-      flippedCardsID: []
+      flippedCardsID: [],
+      timeElapsed: '1:00',
+      score: 800
     });
 
     render(<App />);
 
     expect(screen.getByTestId('game-complete-message')).toBeInTheDocument();
     expect(screen.getByText('Congratulations!')).toBeInTheDocument();
-    expect(screen.getByText('You completed the game in 10 moves.')).toBeInTheDocument();
+    expect(screen.getByText('You completed the game.')).toBeInTheDocument();
+    expect(screen.getByText('Moves:')).toBeInTheDocument();
+    expect(screen.getByText('10')).toBeInTheDocument();
+    expect(screen.getByText('Time:')).toBeInTheDocument();
+    expect(screen.getByText('1:00')).toBeInTheDocument();
+    expect(screen.getByText('Score:')).toBeInTheDocument();
+    expect(screen.getByText('800')).toBeInTheDocument();
   });
 
   it('calls resetGame when play again button is clicked', () => {
