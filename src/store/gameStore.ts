@@ -45,10 +45,21 @@ const canFlipCard = (card: ICard, flippedCardsID: number[], isProcessing: boolea
  * @param firstCardId - ID of the first card
  * @param secondCardId - ID of the second card
  * @param set - STORE Set function
+ * @param get - STORE Get function
+ * @param rawSeconds - Raw seconds
  * @param timerInterval - Timer interval
  * @param setTimerInterval - Function to update timerInterval
  */
-const handleMatch = (cards: ICard[], firstCardId: number, secondCardId: number, set: any, timerInterval: number | undefined, setTimerInterval: (interval: number | undefined) => void) => {
+const handleMatch = (
+  cards: ICard[],
+  firstCardId: number,
+  secondCardId: number,
+  set: any,
+  get: () => IGameState,
+  rawSeconds: number,
+  timerInterval: number | undefined,
+  setTimerInterval: (interval: number | undefined) => void
+) => {
   setTimeout(() => {
     const updatedCards = cards.map(card => {
       if (card.id === firstCardId || card.id === secondCardId) {
@@ -67,7 +78,23 @@ const handleMatch = (cards: ICard[], firstCardId: number, secondCardId: number, 
     const isComplete = updatedCards.every(card => card.isMatched);
     if (isComplete) {
       stopTimer(set, timerInterval, setTimerInterval);
-      set({ isGameComplete: true });
+
+      // Calculate score
+      const baseScore = 1000;
+      const movePenalty = get().moves * 10;
+      const timePenalty = rawSeconds * 2;
+      let finalScore = baseScore - movePenalty - timePenalty;
+      finalScore = Math.max(0, finalScore);
+
+      // Add bonus for completing the game in the minimum number of moves
+      if (get().moves === cards.length / 2) {
+        finalScore += 500;
+      }
+
+      set({
+        isGameComplete: true,
+        score: Math.round(finalScore)
+      });
     }
   }, 500);
 };
@@ -148,6 +175,7 @@ export const useGameStore = create<IGameState>((set, get) => {
     isProcessing: false,
     timeElapsed: '0:00',
     isTimerRunning: false,
+    score: 0,
 
     // Actions
     initializeGame: () => {
@@ -189,7 +217,8 @@ export const useGameStore = create<IGameState>((set, get) => {
         isGameComplete: false,
         isProcessing: false,
         timeElapsed: '0:00',
-        isTimerRunning: false
+        isTimerRunning: false,
+        score: 0
       });
     },
 
@@ -237,7 +266,7 @@ export const useGameStore = create<IGameState>((set, get) => {
         }
 
         if (firstCard.pairId === secondCard.pairId) {
-          handleMatch(cards, firstCardId, secondCardId, set, timerInterval, setTimerInterval);
+          handleMatch(cards, firstCardId, secondCardId, set, get, rawSeconds, timerInterval, setTimerInterval);
         } else {
           handleNoMatch(cards, firstCardId, secondCardId, set);
         }

@@ -16,10 +16,17 @@
 
   h2 {
     color: $primary-color;
-    margin-bottom: $spacing-sm;
+    margin-bottom: $spacing-lg;
+    line-height: 120%;
+    small {
+      font-size: 14px;
+      color: $text-color;
+    }
   }
 
   p {
+    display: flex;
+    gap: $spacing-md;
     margin-bottom: $spacing-md;
     color: $text-color;
   }

@@ -14,6 +14,7 @@ function App() {
     flipCard,
     initializeGame,
     timeElapsed,
+    score,
   } = useGameStore();
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
             moves={moves}
             timeElapsed={timeElapsed}
             onPlayAgain={resetGame}
+            score={score}
           />
         )}
       </main>
