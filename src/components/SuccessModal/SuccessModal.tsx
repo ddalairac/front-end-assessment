@@ -26,7 +26,10 @@ const SuccessModal = () => {
 
   return (
     <>
-      <div className={`backdrop ${isClosing ? 'closing' : ''}`}></div>
+      <div
+        className={`backdrop ${isClosing ? 'closing' : ''}`}
+        data-testid="modal-backdrop"
+      ></div>
       <div
         className={`success-modal ${isClosing ? 'closing' : ''}`}
         data-testid='game-complete-message'

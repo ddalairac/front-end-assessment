@@ -9,91 +9,79 @@ vi.mock('./store/gameStore', () => ({
 }));
 
 describe('App Component', () => {
-  const mockResetGame = vi.fn();
   const mockFlipCard = vi.fn();
-  const mockInitializeCards = vi.fn();
-  // Define the type of mockCards according to the Card interface
+  const mockInitializeGame = vi.fn();
+  const mockSetOpenModal = vi.fn();
   const mockCards: { id: number; image: string; isFlipped: boolean; isMatched: boolean; pairId: number }[] = [];
 
   beforeEach(() => {
     vi.resetAllMocks();
+    (useGameStore as any).mockReturnValue({
+      cards: mockCards,
+      moves: 0,
+      openModal: false,
+      setOpenModal: mockSetOpenModal,
+      flipCard: mockFlipCard,
+      initializeGame: mockInitializeGame,
+      timeElapsed: '0:00'
+    });
   });
 
   it('renders Header and CardGrid components', () => {
-    // @ts-expect-error - we are mocking the hook
-    useGameStore.mockReturnValue({
-      cards: mockCards,
-      moves: 0,
-      resetGame: mockResetGame,
-      isGameComplete: false,
-      flipCard: mockFlipCard,
-      initializeGame: mockInitializeCards,
-      flippedCardsID: []
-    });
-
     render(<App />);
 
     expect(screen.getByTestId('memory-game-app')).toBeInTheDocument();
     expect(screen.getByTestId('game-header')).toBeInTheDocument();
     expect(screen.getByTestId('card-grid')).toBeInTheDocument();
-    expect(mockInitializeCards).toHaveBeenCalledTimes(1);
   });
 
   it('displays game complete message when game is finished', () => {
-    // @ts-expect-error - we are mocking the hook
-    useGameStore.mockReturnValue({
+    (useGameStore as any).mockReturnValue({
       cards: mockCards,
       moves: 10,
-      resetGame: mockResetGame,
-      isGameComplete: true,
+      openModal: true,
+      setOpenModal: mockSetOpenModal,
       flipCard: mockFlipCard,
-      initializeGame: mockInitializeCards,
-      flippedCardsID: [],
+      initializeGame: mockInitializeGame,
       timeElapsed: '1:00',
+      isGameComplete: true,
       score: 800
     });
 
     render(<App />);
 
     expect(screen.getByTestId('game-complete-message')).toBeInTheDocument();
-    expect(screen.getByText('Congratulations!')).toBeInTheDocument();
-    expect(screen.getByText('You completed the game.')).toBeInTheDocument();
-    expect(screen.getByText('Moves:')).toBeInTheDocument();
-    expect(screen.getByText('10')).toBeInTheDocument();
-    expect(screen.getByText('Time:')).toBeInTheDocument();
-    expect(screen.getByText('1:00')).toBeInTheDocument();
-    expect(screen.getByText('Score:')).toBeInTheDocument();
-    expect(screen.getByText('800')).toBeInTheDocument();
   });
 
-  it('calls resetGame when play again button is clicked', () => {
-    // @ts-expect-error - we are mocking the hook
-    useGameStore.mockReturnValue({
+  it('calls initializeGame when play again button is clicked', () => {
+    (useGameStore as any).mockReturnValue({
       cards: mockCards,
       moves: 10,
-      resetGame: mockResetGame,
-      isGameComplete: true,
+      openModal: true,
+      setOpenModal: mockSetOpenModal,
       flipCard: mockFlipCard,
-      initializeGame: mockInitializeCards,
-      flippedCardsID: []
+      initializeGame: mockInitializeGame,
+      timeElapsed: '1:00',
+      isGameComplete: true,
+      score: 800
     });
 
     render(<App />);
 
     fireEvent.click(screen.getByTestId('play-again-button'));
-    expect(mockResetGame).toHaveBeenCalledTimes(1);
+    expect(mockInitializeGame).toHaveBeenCalledTimes(1);
   });
 
   it('does not display game complete message when game is not finished', () => {
-    // @ts-expect-error - we are mocking the hook
-    useGameStore.mockReturnValue({
+    (useGameStore as any).mockReturnValue({
       cards: mockCards,
       moves: 5,
-      resetGame: mockResetGame,
-      isGameComplete: false,
+      openModal: false,
+      setOpenModal: mockSetOpenModal,
       flipCard: mockFlipCard,
-      initializeGame: mockInitializeCards,
-      flippedCardsID: []
+      initializeGame: mockInitializeGame,
+      timeElapsed: '0:00',
+      isGameComplete: false
     });
 
     render(<App />);

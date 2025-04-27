@@ -20,7 +20,7 @@ const Header = ({
         <div className='header-controls'>
           <button
             className='reset-button'
-            data-testid='reset-button'
+            data-testid='reset-game-button'
             onClick={onReset}
             disabled={timeElapsed === '0:00'}
           >
@@ -34,7 +34,7 @@ const Header = ({
           </span>
           <button
             className='reset-button'
-            data-testid='reset-button'
+            data-testid='change-level-button'
             onClick={() => {
               onReset();
               setOpenModal(true);
