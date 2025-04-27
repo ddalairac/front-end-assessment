@@ -155,6 +155,27 @@ const stopTimer = (set: any, timerInterval: number | undefined, setTimerInterval
     set({ isTimerRunning: false });
   }
 };
+
+const log = () => {
+  const style = `background: #222; color: #2196f3; font-size: 14px; padding: 0;`;
+   const ascii_title = `                                         .
+  __  __                                 .
+ |  \\/  | ___ _ __ ___   ___  _ __ _   _ .
+ | |\\/| |/ _ \\ '_ \` _ \\ / _ \\| '__| | | |.
+ | |  | |  __/ | | | | | (_) | |  | |_| |.
+ |_|  |_|\\___|_| |_| |_|\\___/|_|   \\__  /.
+   ____                            |___/ .
+  / ___| __ _ _ __ ___   ___             .
+ | |  _ / _\` | '_ \` _ \\ / _ \\            .
+ | |_| | (_| | | | | | |  __/            .
+  \\____|\\__,_|_| |_| |_|\\___|            .
+                                         .
+  by: Dalairac Diego                     .
+                                         .`;
+
+  console.log(`%c${ascii_title}`,
+style,'https://github.com/ddalairac/front-end-assessment');
+};
 // #endregion
 
 export const useGameStore = create<IGameState>((set, get) => {
@@ -165,6 +186,8 @@ export const useGameStore = create<IGameState>((set, get) => {
   const setTimerInterval = (interval: number | undefined) => {
     timerInterval = interval;
   };
+
+  log();
 
   return {
     // State

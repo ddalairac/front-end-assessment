@@ -44,6 +44,16 @@ npm install
 npm run start
 ```
 
+Run the build locally:
+
+```bash
+# Install dependencies
+npm run build
+
+# Start development server
+npm run preview
+```
+
 Run produccion build locally:
 
 ```bash
