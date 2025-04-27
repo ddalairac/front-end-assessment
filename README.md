@@ -5,6 +5,24 @@ This project is a challenge designed for the Zicasso evaluation process.
 - [📄 Challenge Brief](./brief.md)
 - [🚀 Live Demo](https://ddalairac.github.io/front-end-assessment/)
 
+![Memory Card Game Screenshot](./Screenshot.png)
+
+## Personalization (Additional Features)
+
+- Production Build Optimization
+- SEO Optimization
+- GitHub Pages Deployment
+- State Management
+- Difficulty Levels (Easy, Medium, Hard)
+- Scoring System
+- Game Timer
+- Modal (Start/Success)
+- Animations
+- Extensive Unit Testing
+- Responsive Design
+- Browser console cover
+
+
 ## Dependencies
 
 ### Original Dependencies (from fork)
