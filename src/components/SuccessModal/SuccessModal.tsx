@@ -10,7 +10,7 @@ const SuccessModal = () => {
     timeElapsed,
     score,
     setDifficulty,
-    setOpenModal,
+    setModalOpen,
     initializeGame,
   } = useGameStore();
 
@@ -20,7 +20,7 @@ const SuccessModal = () => {
     setIsClosing(true);
     initializeGame();
     setTimeout(() => {
-      setOpenModal(false);
+      setModalOpen(false);
     }, 300); // Match the animation duration
   };
 

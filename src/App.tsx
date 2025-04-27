@@ -21,7 +21,8 @@ function App() {
         onReset={initializeGame}
         moves={moves}
         timeElapsed={timeElapsed}
-        setModalOpen={setModalOpen}
+        setOpenModal={setModalOpen}
+        isModalOpen={isModalOpen}
       />
       <main>
         <CardGrid cards={cards} onCardFlip={flipCard} />

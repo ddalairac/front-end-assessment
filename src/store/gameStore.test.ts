@@ -148,11 +148,6 @@ describe('Game Store', () => {
         card.pairId === firstCard.pairId && card.id !== firstCard.id
       );
 
-      // Debug information
-      console.log('First card:', firstCard);
-      console.log('All cards:', state.cards);
-      console.log('Matching cards:', matchingCards);
-
       // Ensure we found at least one matching card
       expect(matchingCards.length).toBeGreaterThan(0);
 
