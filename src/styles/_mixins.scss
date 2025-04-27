@@ -32,5 +32,5 @@ but they are only to demonstrate their implementation. */
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color $transition-speed;
+  transition: background-color $transition-speed, color $transition-speed;
 }

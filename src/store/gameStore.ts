@@ -49,12 +49,17 @@ export const useGameStore = create<IGameState>((set, get) => {
     timeElapsed: '0:00',
     isTimerRunning: false,
     score: 0,
-    difficulty: 'hard',
+    difficulty: 'medium',
+    openModal: true,
 
 
     // Actions
     setDifficulty: (difficulty: DifficultyType) => {
       set({ difficulty });
+    },
+
+    setOpenModal: (openModal: boolean) => {
+      set({ openModal });
     },
 
     initializeGame: () => {
@@ -63,7 +68,7 @@ export const useGameStore = create<IGameState>((set, get) => {
 
       // Determine the number of pairs according to the difficulty
       let numPairs = 3;
-      if (get().difficulty === 'medium') numPairs = 6;
+      if (get().difficulty === 'medium') numPairs = 5;
       if (get().difficulty === 'hard') numPairs = 10;
 
       // Array with each image appearing exactly twice

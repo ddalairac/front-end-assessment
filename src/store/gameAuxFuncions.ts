@@ -83,6 +83,7 @@ export const handleMatch = (
 
       set({
         isGameComplete: true,
+        openModal: true,
         score: Math.round(finalScore)
       });
     }

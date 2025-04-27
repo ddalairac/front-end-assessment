@@ -6,16 +6,8 @@ import { useGameStore } from './store/gameStore';
 import './App.scss';
 
 function App() {
-  const {
-    cards,
-    moves,
-    resetGame,
-    isGameComplete,
-    flipCard,
-    initializeGame,
-    timeElapsed,
-    score,
-  } = useGameStore();
+  const { cards, moves, openModal, resetGame, flipCard, initializeGame, timeElapsed } =
+    useGameStore();
 
   useEffect(() => {
     // Initialize cards when component mounts
@@ -27,14 +19,7 @@ function App() {
       <Header onReset={resetGame} moves={moves} timeElapsed={timeElapsed} />
       <main>
         <CardGrid cards={cards} onCardFlip={flipCard} />
-        {isGameComplete && (
-          <SuccessModal
-            moves={moves}
-            timeElapsed={timeElapsed}
-            onPlayAgain={resetGame}
-            score={score}
-          />
-        )}
+        {openModal && <SuccessModal />}
       </main>
     </div>
   );

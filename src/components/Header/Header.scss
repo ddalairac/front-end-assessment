@@ -10,14 +10,21 @@
   box-shadow: $shadow-sm;
 
   h1 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
     margin: 0;
+    padding: $spacing-sm;
     font-size: 2rem;
+    z-index: 1;
+    background-color: transparent;
   }
 
   &-controls {
     @include flex-center;
     gap: $spacing-sm;
-    margin-top: $spacing-sm;
+    margin-top: $spacing-xl;
   }
 
   .moves {
