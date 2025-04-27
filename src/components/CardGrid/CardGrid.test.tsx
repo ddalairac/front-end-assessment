@@ -22,13 +22,13 @@ describe('CardGrid Component', () => {
   it('calls onCardFlip when a card is clicked', () => {
     render(<CardGrid cards={mockCards} onCardFlip={mockOnCardFlip} />);
 
-    // Seleccionamos específicamente la primera tarjeta por su data-testid
+    // Select the first card specifically by its data-testid
     const firstCard = screen.getByTestId('card-1');
 
-    // Hacemos clic en la tarjeta
+    // Click on the card
     fireEvent.click(firstCard);
 
-    // Verificamos que se haya llamado a onCardFlip con el ID correcto
+    // Verify that onCardFlip was called with the correct ID
     expect(mockOnCardFlip).toHaveBeenCalledWith(1);
   });
 });

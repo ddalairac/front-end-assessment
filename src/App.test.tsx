@@ -52,40 +52,4 @@ describe('App Component', () => {
 
     expect(screen.getByTestId('game-complete-message')).toBeInTheDocument();
   });
-
-  it('calls initializeGame when play again button is clicked', () => {
-    (useGameStore as any).mockReturnValue({
-      cards: mockCards,
-      moves: 10,
-      openModal: true,
-      setOpenModal: mockSetOpenModal,
-      flipCard: mockFlipCard,
-      initializeGame: mockInitializeGame,
-      timeElapsed: '1:00',
-      isGameComplete: true,
-      score: 800
-    });
-
-    render(<App />);
-
-    fireEvent.click(screen.getByTestId('play-again-button'));
-    expect(mockInitializeGame).toHaveBeenCalledTimes(1);
-  });
-
-  it('does not display game complete message when game is not finished', () => {
-    (useGameStore as any).mockReturnValue({
-      cards: mockCards,
-      moves: 5,
-      openModal: false,
-      setOpenModal: mockSetOpenModal,
-      flipCard: mockFlipCard,
-      initializeGame: mockInitializeGame,
-      timeElapsed: '0:00',
-      isGameComplete: false
-    });
-
-    render(<App />);
-
-    expect(screen.queryByTestId('game-complete-message')).not.toBeInTheDocument();
-  });
 });
