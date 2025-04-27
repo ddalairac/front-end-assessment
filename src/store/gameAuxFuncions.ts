@@ -1,4 +1,3 @@
-
 // Auxiliary functions
 import { ICard, IGameState } from '../types';
 
@@ -22,10 +21,16 @@ export const formatTime = (seconds: number): string => {
  * @returns True if card can be flipped, false otherwise
  */
 export const canFlipCard = (card: ICard, flippedCardsID: number[], isProcessing: boolean): boolean => {
+  // If the game is processing a match/no-match, no cards can be flipped
   if (isProcessing) return false;
-  if (card.isFlipped) return false;
-  if (card.isMatched) return false;
+
+  // If the card is already flipped or matched, it can't be flipped
+  if (card.isFlipped || card.isMatched) return false;
+
+  // If we already have 2 cards flipped, no more cards can be flipped
   if (flippedCardsID.length >= 2) return false;
+
+  // If none of the above conditions are met, the card can be flipped
   return true;
 };
 

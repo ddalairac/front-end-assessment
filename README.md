@@ -80,4 +80,7 @@ Run unit tests
 ```bash
 # To run the tests:
 npm run test
+
+# To run the tests & listen to changes
+npm run test:watch
 ```

@@ -12,7 +12,8 @@
     "start": "vite --port 3000",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "react": "^18.3.1",
