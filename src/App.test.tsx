@@ -19,8 +19,8 @@ describe('App Component', () => {
     (useGameStore as any).mockReturnValue({
       cards: mockCards,
       moves: 0,
-      openModal: false,
-      setOpenModal: mockSetOpenModal,
+      isModalOpen: false,
+      setModalOpen: mockSetOpenModal,
       flipCard: mockFlipCard,
       initializeGame: mockInitializeGame,
       timeElapsed: '0:00'
@@ -39,8 +39,8 @@ describe('App Component', () => {
     (useGameStore as any).mockReturnValue({
       cards: mockCards,
       moves: 10,
-      openModal: true,
-      setOpenModal: mockSetOpenModal,
+      isModalOpen: true,
+      setModalOpen: mockSetOpenModal,
       flipCard: mockFlipCard,
       initializeGame: mockInitializeGame,
       timeElapsed: '1:00',

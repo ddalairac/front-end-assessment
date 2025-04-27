@@ -8,8 +8,8 @@ function App() {
   const {
     cards,
     moves,
-    openModal,
-    setOpenModal,
+    isModalOpen,
+    setModalOpen,
     flipCard,
     initializeGame,
     timeElapsed,
@@ -21,11 +21,11 @@ function App() {
         onReset={initializeGame}
         moves={moves}
         timeElapsed={timeElapsed}
-        setOpenModal={setOpenModal}
+        setModalOpen={setModalOpen}
       />
       <main>
         <CardGrid cards={cards} onCardFlip={flipCard} />
-        {openModal && <SuccessModal />}
+        {isModalOpen && <SuccessModal />}
       </main>
     </div>
   );

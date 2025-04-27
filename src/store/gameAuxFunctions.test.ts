@@ -88,7 +88,7 @@ describe('Game Auxiliary Functions', () => {
 
       expect(mockSet).toHaveBeenCalledWith(expect.objectContaining({
         isGameComplete: true,
-        openModal: true,
+        isModalOpen: true,
         score: expect.any(Number)
       }));
     });

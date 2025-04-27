@@ -26,7 +26,7 @@ describe('Game Store', () => {
       isTimerRunning: false,
       score: 0,
       difficulty: 'medium',
-      openModal: true
+      isModalOpen: true
     });
   });
 
@@ -38,11 +38,11 @@ describe('Game Store', () => {
     });
   });
 
-  describe('setOpenModal', () => {
-    it('updates openModal state correctly', () => {
+  describe('setModalOpen', () => {
+    it('updates isModalOpen state correctly', () => {
       const store = useGameStore.getState();
-      store.setOpenModal(false);
-      expect(useGameStore.getState().openModal).toBe(false);
+      store.setModalOpen(false);
+      expect(useGameStore.getState().isModalOpen).toBe(false);
     });
   });
 

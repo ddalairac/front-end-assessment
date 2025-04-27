@@ -50,7 +50,7 @@ export const useGameStore = create<IGameState>((set, get) => {
     isTimerRunning: false,
     score: 0,
     difficulty: 'medium',
-    openModal: true,
+    isModalOpen: true,
 
 
     // Actions
@@ -58,8 +58,8 @@ export const useGameStore = create<IGameState>((set, get) => {
       set({ difficulty });
     },
 
-    setOpenModal: (openModal: boolean) => {
-      set({ openModal });
+    setModalOpen: (isModalOpen: boolean) => {
+      set({ isModalOpen });
     },
 
     initializeGame: () => {

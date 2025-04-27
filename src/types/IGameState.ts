@@ -13,12 +13,12 @@ export interface IGameState {
   isTimerRunning: boolean; // to prevent starting multiple timers
   score: number;
   difficulty: DifficultyType;
-  openModal: boolean;
+  isModalOpen: boolean;
 
   // Actions
   initializeGame: () => void;
   flipCard: (cardId: number) => void;
   setDifficulty: (difficulty: DifficultyType) => void;
-  setOpenModal: (openModal: boolean) => void;
+  setModalOpen: (isModalOpen: boolean) => void;
 }
 

@@ -22,7 +22,7 @@ describe('SuccessModal Component', () => {
       timeElapsed: '1:00',
       score: 800,
       setDifficulty: mockSetDifficulty,
-      setOpenModal: mockSetOpenModal,
+      setModalOpen: mockSetOpenModal,
       initializeGame: mockInitializeGame
     });
   });
@@ -40,11 +40,11 @@ describe('SuccessModal Component', () => {
     expect(screen.getByText('800')).toBeInTheDocument();
   });
 
-  it('calls initializeGame and setOpenModal when play again button is clicked', () => {
+  it('calls initializeGame and setModalOpen when play again button is clicked', () => {
     render(<SuccessModal />);
     fireEvent.click(screen.getByTestId('play-again-button'));
     expect(mockInitializeGame).toHaveBeenCalledTimes(1);
-    // Note: setOpenModal is called after a timeout, so we can't test it directly
+    // Note: setModalOpen is called after a timeout, so we can't test it directly
   });
 
   it('renders difficulty selection message when game is not complete', () => {
@@ -55,7 +55,7 @@ describe('SuccessModal Component', () => {
       timeElapsed: '0:00',
       score: 0,
       setDifficulty: mockSetDifficulty,
-      setOpenModal: mockSetOpenModal,
+      setModalOpen: mockSetOpenModal,
       initializeGame: mockInitializeGame
     });
 
@@ -89,7 +89,7 @@ describe('SuccessModal Component', () => {
       timeElapsed: '0:00',
       score: 0,
       setDifficulty: mockSetDifficulty,
-      setOpenModal: mockSetOpenModal,
+      setModalOpen: mockSetOpenModal,
       initializeGame: mockInitializeGame
     });
 

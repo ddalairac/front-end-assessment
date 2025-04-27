@@ -4,7 +4,7 @@ interface IHeaderProps {
   moves: number;
   timeElapsed: string;
   onReset: () => void;
-  setOpenModal: (openModal: boolean) => void;
+  setOpenModal: (isModalOpen: boolean) => void;
 }
 
 const Header = ({
