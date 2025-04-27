@@ -7,7 +7,8 @@ describe('Header Component', () => {
     onReset: vi.fn(),
     moves: 5,
     timeElapsed: '1:00',
-    setOpenModal: vi.fn()
+    setOpenModal: vi.fn(),
+    isModalOpen: false
   };
 
   it('renders the title correctly', () => {
