@@ -1,4 +1,5 @@
 import { useGameStore } from '../../store/gameStore';
+import { useState } from 'react';
 import './SuccessModal.scss';
 
 const SuccessModal = () => {
@@ -11,17 +12,24 @@ const SuccessModal = () => {
     setDifficulty,
     setOpenModal,
     resetGame,
+    initializeGame
   } = useGameStore();
 
+  const [isClosing, setIsClosing] = useState(false);
+
   const onNewGame = () => {
-    resetGame();
-    setOpenModal(false);
+    setIsClosing(true);
+    initializeGame();
+    setTimeout(() => {
+      resetGame();
+      setOpenModal(false);
+    }, 300); // Match the animation duration
   };
 
   return (
     <>
-      <div className='backdrop'></div>
-      <div className='success-modal' data-testid='game-complete-message'>
+      <div className={`backdrop ${isClosing ? 'closing' : ''}`}></div>
+      <div className={`success-modal ${isClosing ? 'closing' : ''}`} data-testid='game-complete-message'>
         {!isGameComplete ? (
           <>
             <h2>

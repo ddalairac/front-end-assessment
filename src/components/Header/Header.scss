@@ -5,12 +5,11 @@
 .header {
   background-color: $header-color;
   color: white;
-  padding: $spacing-sm;
   text-align: center;
   box-shadow: $shadow-sm;
 
   h1 {
-    position: fixed;
+    position: sticky;
     left: 0;
     top: 0;
     width: 100%;
@@ -18,13 +17,14 @@
     padding: $spacing-sm;
     font-size: 2rem;
     z-index: 1;
-    background-color: transparent;
+    background-color: $text-color;
   }
 
   &-controls {
     @include flex-center;
     gap: $spacing-sm;
-    margin-top: $spacing-xl;
+    margin-top: $spacing-sm;
+    padding: $spacing-sm;
   }
 
   .moves {

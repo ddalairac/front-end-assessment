@@ -9,10 +9,10 @@ function App() {
   const { cards, moves, openModal, resetGame, setOpenModal, flipCard, initializeGame, timeElapsed } =
     useGameStore();
 
-  useEffect(() => {
-    // Initialize cards when component mounts
-    initializeGame();
-  }, [initializeGame]);
+  // useEffect(() => {
+  //   // Initialize cards when component mounts
+  //   initializeGame();
+  // }, [initializeGame]);
 
   return (
     <div className='app' data-testid='memory-game-app'>
