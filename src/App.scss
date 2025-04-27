@@ -9,7 +9,7 @@
 }
 
 main {
-  padding: $spacing-lg;
+  padding: $spacing-lg $spacing-sm;
   max-width: $breakpoint-lg;
   margin: 0 auto;
   position: relative;

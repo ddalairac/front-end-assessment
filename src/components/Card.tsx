@@ -28,7 +28,7 @@ const Card = ({ id, image, isFlipped, isMatched, onClick }: ICardProps) => {
       aria-disabled={isMatched}
     >
       <div className="card-flipper">
-        <div className="card-front">
+        <div className="card-flipper_front">
           <img
             src={image}
             alt={`Card ${id}`}
@@ -38,8 +38,8 @@ const Card = ({ id, image, isFlipped, isMatched, onClick }: ICardProps) => {
             decoding="async"
           />
         </div>
-        <div className="card-back">
-          <div className="card-back-content">?</div>
+        <div className="card-flipper_back">
+          <div className="card-back-content"></div>
         </div>
       </div>
     </div>

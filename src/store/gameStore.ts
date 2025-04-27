@@ -1,13 +1,19 @@
 import { create } from 'zustand';
 import { ICard, IGameState } from '../types';
+import img1 from '../assets/img-Asset 1-80.jpg';
+import img2 from '../assets/img-Asset 2-80.jpg';
+import img3 from '../assets/img-Asset 3-80.jpg';
+import img4 from '../assets/img-Asset 4-80.jpg';
+import img5 from '../assets/img-Asset 5-80.jpg';
+import img6 from '../assets/img-Asset 6-80.jpg';
 
 const images = [
-  'https://picsum.photos/200/200?random=1',
-  'https://picsum.photos/200/200?random=2',
-  'https://picsum.photos/200/200?random=3',
-  'https://picsum.photos/200/200?random=4',
-  'https://picsum.photos/200/200?random=5',
-  'https://picsum.photos/200/200?random=6'
+  img1,
+  img2,
+  img3,
+  img4,
+  img5,
+  img6
 ];
 
 const formatTime = (seconds: number): string => {
