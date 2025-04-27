@@ -1,11 +1,16 @@
 import { create } from 'zustand';
-import { ICard, IGameState } from '../types';
-import img1 from '../assets/img-Asset 1-80.jpg';
-import img2 from '../assets/img-Asset 2-80.jpg';
-import img3 from '../assets/img-Asset 3-80.jpg';
-import img4 from '../assets/img-Asset 4-80.jpg';
-import img5 from '../assets/img-Asset 5-80.jpg';
-import img6 from '../assets/img-Asset 6-80.jpg';
+import img1 from '../assets/img-Asset 1.jpg';
+import img2 from '../assets/img-Asset 2.jpg';
+import img3 from '../assets/img-Asset 3.jpg';
+import img4 from '../assets/img-Asset 4.jpg';
+import img5 from '../assets/img-Asset 5.jpg';
+import img6 from '../assets/img-Asset 6.jpg';
+import img7 from '../assets/img-Asset 7.jpg';
+import img8 from '../assets/img-Asset 8.jpg';
+import img9 from '../assets/img-Asset 9.jpg';
+import img10 from '../assets/img-Asset 10.jpg';
+import { DifficultyType, ICard, IGameState } from '../types';
+import { browserLog, canFlipCard, handleMatch, handleNoMatch, startTimer, stopTimer } from './gameAuxFuncions';
 
 const images = [
   img1,
@@ -13,181 +18,26 @@ const images = [
   img3,
   img4,
   img5,
-  img6
+  img6,
+  img7,
+  img8,
+  img9,
+  img10,
 ];
 
-const formatTime = (seconds: number): string => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-};
-
-// #region Auxiliary functions
-
-/**
- * Check if card can be flipped
- * @param card - Card to check
- * @param flippedCardsID - Array of flipped cards IDs
- * @param isProcessing - Whether the game is processing a match
- * @returns True if card can be flipped, false otherwise
- */
-const canFlipCard = (card: ICard, flippedCardsID: number[], isProcessing: boolean): boolean => {
-  if (isProcessing) return false;
-  if (card.isFlipped) return false;
-  if (card.isMatched) return false;
-  if (flippedCardsID.length >= 2) return false;
-  return true;
-};
-
-/**
- * Handle a match
- * @param cards - Array of cards
- * @param firstCardId - ID of the first card
- * @param secondCardId - ID of the second card
- * @param set - STORE Set function
- * @param get - STORE Get function
- * @param rawSeconds - Raw seconds
- * @param timerInterval - Timer interval
- * @param setTimerInterval - Function to update timerInterval
- */
-const handleMatch = (
-  cards: ICard[],
-  firstCardId: number,
-  secondCardId: number,
-  set: any,
-  get: () => IGameState,
-  rawSeconds: number,
-  timerInterval: number | undefined,
-  setTimerInterval: (interval: number | undefined) => void
-) => {
-  setTimeout(() => {
-    const updatedCards = cards.map(card => {
-      if (card.id === firstCardId || card.id === secondCardId) {
-        return { ...card, isMatched: true, isFlipped: true };
-      }
-      return card;
-    });
-
-    set({
-      cards: updatedCards,
-      flippedCardsID: [],
-      isProcessing: false
-    });
-
-    // Check if game is complete
-    const isComplete = updatedCards.every(card => card.isMatched);
-    if (isComplete) {
-      stopTimer(set, timerInterval, setTimerInterval);
-
-      // Calculate score
-      const baseScore = 1000;
-      const movePenalty = get().moves * 10;
-      const timePenalty = rawSeconds * 2;
-      let finalScore = baseScore - movePenalty - timePenalty;
-      finalScore = Math.max(0, finalScore);
-
-      // Add bonus for completing the game in the minimum number of moves
-      if (get().moves === cards.length / 2) {
-        finalScore += 500;
-      }
-
-      set({
-        isGameComplete: true,
-        score: Math.round(finalScore)
-      });
-    }
-  }, 500);
-};
-
-/**
- * Handle a no match
- * @param cards - Array of cards
- * @param firstCardId - ID of the first card
- * @param secondCardId - ID of the second card
- * @param set - STORE Set function
- */
-const handleNoMatch = (cards: ICard[], firstCardId: number, secondCardId: number, set: any) => {
-  setTimeout(() => {
-    const updatedCards = cards.map(card => {
-      if (card.id === firstCardId || card.id === secondCardId) {
-        return { ...card, isFlipped: false };
-      }
-      return card;
-    });
-
-    set({
-      cards: updatedCards,
-      flippedCardsID: [],
-      isProcessing: false
-    });
-  }, 1000);
-};
-
-// Timer helper functions
-/**
- * Start the timer
- * @param get - STORE Get function
- * @param set - STORE Set function
- * @param setTimerInterval - Function to update timerInterval
- * @param rawSeconds - Raw seconds
- */
-const startTimer = (get: () => IGameState, set: any, setTimerInterval: (interval: number | undefined) => void, rawSeconds: number) => {
-  if (!get().isTimerRunning) {
-    set({ isTimerRunning: true });
-    const interval = window.setInterval(() => {
-      rawSeconds += 1;
-      set({ timeElapsed: formatTime(rawSeconds) });
-    }, 1000);
-    setTimerInterval(interval);
-  }
-};
-
-/**
- * Stop the timer
- * @param set - STORE Set function
- * @param timerInterval - Timer interval
- * @param setTimerInterval - Function to update timerInterval
- */
-const stopTimer = (set: any, timerInterval: number | undefined, setTimerInterval: (interval: number | undefined) => void) => {
-  if (timerInterval) {
-    window.clearInterval(timerInterval);
-    setTimerInterval(undefined);
-    set({ isTimerRunning: false });
-  }
-};
-
-const log = () => {
-  const style = `background: #222; color: #2196f3; font-size: 14px; padding: 0;`;
-   const ascii_title = `                                         .
-  __  __                                 .
- |  \\/  | ___ _ __ ___   ___  _ __ _   _ .
- | |\\/| |/ _ \\ '_ \` _ \\ / _ \\| '__| | | |.
- | |  | |  __/ | | | | | (_) | |  | |_| |.
- |_|  |_|\\___|_| |_| |_|\\___/|_|   \\__  /.
-   ____                            |___/ .
-  / ___| __ _ _ __ ___   ___             .
- | |  _ / _\` | '_ \` _ \\ / _ \\            .
- | |_| | (_| | | | | | |  __/            .
-  \\____|\\__,_|_| |_| |_|\\___|            .
-                                         .
-  by: Dalairac Diego                     .
-                                         .`;
-
-  console.log(`%c${ascii_title}`,
-style,'https://github.com/ddalairac/front-end-assessment');
-};
-// #endregion
 
 export const useGameStore = create<IGameState>((set, get) => {
+  browserLog();
+
   // This is out of state to avoid triggering changes
   let timerInterval: number | undefined;
   let rawSeconds = 0;
 
+  // To start/stop interval. Since it is not an object, the variable is passed as a value, not a pointer.
   const setTimerInterval = (interval: number | undefined) => {
     timerInterval = interval;
   };
 
-  log();
 
   return {
     // State
@@ -199,18 +49,28 @@ export const useGameStore = create<IGameState>((set, get) => {
     timeElapsed: '0:00',
     isTimerRunning: false,
     score: 0,
+    difficulty: 'hard',
+
 
     // Actions
+    setDifficulty: (difficulty: DifficultyType) => {
+      set({ difficulty });
+    },
+
     initializeGame: () => {
       stopTimer(set, timerInterval, setTimerInterval);
       rawSeconds = 0;
+
+      // Determine the number of pairs according to the difficulty
+      let numPairs = 3;
+      if (get().difficulty === 'medium') numPairs = 6;
+      if (get().difficulty === 'hard') numPairs = 10;
 
       // Array with each image appearing exactly twice
       const cardPairs: ICard[] = [];
 
       // For each image, create two cards with the same pairId
-      images.forEach((image, idx) => {
-        // First card of the pair
+      images.slice(0, numPairs).forEach((image, idx) => {
         cardPairs.push({
           id: cardPairs.length,
           pairId: idx,

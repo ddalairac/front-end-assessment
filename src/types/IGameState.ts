@@ -1,5 +1,7 @@
 import { ICard } from './index';
 
+export type DifficultyType = 'easy' | 'medium' | 'hard';
+
 export interface IGameState {
   // State
   cards: ICard[];
@@ -10,10 +12,12 @@ export interface IGameState {
   timeElapsed: string; // display time in seconds
   isTimerRunning: boolean; // to prevent starting multiple timers
   score: number;
+  difficulty: DifficultyType;
 
   // Actions
   initializeGame: () => void;
   flipCard: (cardId: number) => void;
   resetGame: () => void;
+  setDifficulty: (difficulty: DifficultyType) => void;
 }
 

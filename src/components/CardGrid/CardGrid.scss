@@ -3,10 +3,14 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 160px);
+  grid-template-columns: repeat(5, 160px);
   gap: $spacing-md;
   margin: 0 auto;
   justify-content: center;
+
+  @include responsive(lg) {
+    grid-template-columns: repeat(4, 160px);
+  }
 
   @include responsive(md) {
     grid-template-columns: repeat(3, 160px);
@@ -15,4 +19,5 @@
   @include responsive(sm) {
     grid-template-columns: repeat(2, 160px);
   }
+
 }
