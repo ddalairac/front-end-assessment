@@ -110,10 +110,6 @@ export const useGameStore = create<IGameState>((set, get) => {
       });
     },
 
-    resetGame: () => {
-      get().initializeGame();
-    },
-
     flipCard: (cardId: number) => {
       const { cards, flippedCardsID, moves, isProcessing, isTimerRunning } = get();
 

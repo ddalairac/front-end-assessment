@@ -22,13 +22,14 @@ const Header = ({
             className='reset-button'
             data-testid='reset-button'
             onClick={onReset}
+            disabled={timeElapsed === '0:00'}
           >
             Reset Game
           </button>
           <span className='moves' data-testid='moves-counter'>
             Moves: {moves}
           </span>
-          <span className='moves' data-testid='time-counter'>
+          <span className='time' data-testid='time-counter'>
             Time: {timeElapsed}
           </span>
           <button

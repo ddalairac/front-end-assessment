@@ -27,9 +27,13 @@
     padding: $spacing-sm;
   }
 
-  .moves {
+  .moves,
+  .time {
     font-size: 1.2rem;
     font-weight: bold;
+  }
+  .time {
+    min-width: 100px;
   }
 
   .reset-button {
@@ -42,6 +46,12 @@
     &:hover {
       background-color: white;
       color: $text-color;
+    }
+
+    &:disabled {
+      background-color: transparent;
+      color: white;
+      opacity: 0.5;
     }
   }
 }

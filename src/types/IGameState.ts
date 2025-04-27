@@ -18,7 +18,6 @@ export interface IGameState {
   // Actions
   initializeGame: () => void;
   flipCard: (cardId: number) => void;
-  resetGame: () => void;
   setDifficulty: (difficulty: DifficultyType) => void;
   setOpenModal: (openModal: boolean) => void;
 }

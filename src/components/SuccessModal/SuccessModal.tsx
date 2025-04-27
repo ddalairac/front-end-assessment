@@ -11,8 +11,7 @@ const SuccessModal = () => {
     score,
     setDifficulty,
     setOpenModal,
-    resetGame,
-    initializeGame
+    initializeGame,
   } = useGameStore();
 
   const [isClosing, setIsClosing] = useState(false);
@@ -21,7 +20,6 @@ const SuccessModal = () => {
     setIsClosing(true);
     initializeGame();
     setTimeout(() => {
-      resetGame();
       setOpenModal(false);
     }, 300); // Match the animation duration
   };
@@ -29,7 +27,10 @@ const SuccessModal = () => {
   return (
     <>
       <div className={`backdrop ${isClosing ? 'closing' : ''}`}></div>
-      <div className={`success-modal ${isClosing ? 'closing' : ''}`} data-testid='game-complete-message'>
+      <div
+        className={`success-modal ${isClosing ? 'closing' : ''}`}
+        data-testid='game-complete-message'
+      >
         {!isGameComplete ? (
           <>
             <h2>
