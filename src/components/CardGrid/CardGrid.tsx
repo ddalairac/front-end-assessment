@@ -1,6 +1,6 @@
-import Card from './Card';
+import Card from '../Card/Card';
 import './CardGrid.scss';
-import { ICard } from '../types';
+import { ICard } from '../../types';
 
 interface ICardGridProps {
   cards: ICard[];

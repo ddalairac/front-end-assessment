@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import Header from './components/Header';
-import CardGrid from './components/CardGrid';
-import SuccessModal from './components/SuccessModal';
+import Header from './components/Header/Header';
+import CardGrid from './components/CardGrid/CardGrid';
+import SuccessModal from './components/SuccessModal/SuccessModal';
 import { useGameStore } from './store/gameStore';
 import './App.scss';
 

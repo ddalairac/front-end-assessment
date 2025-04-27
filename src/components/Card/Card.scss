@@ -1,5 +1,5 @@
-@use '../styles/variables' as *;
-@use '../styles/mixins' as *;
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 @use 'sass:color';
 
 .card {
@@ -11,7 +11,7 @@
   perspective: 1000px;
 
   &::after {
-    content: url('../assets/check.svg');
+    content: url('../../assets/check.svg');
     position: absolute;
     top: 15px;
     left: 15px;
@@ -59,11 +59,6 @@
       background-color: $primary-color;
       color: $white;
       font-size: 24px;
-
-      // &-content {
-      //   font-size: 2em;
-      //   font-weight: bold;
-      // }
     }
   }
 
