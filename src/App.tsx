@@ -6,7 +6,7 @@ import { useGameStore } from './store/gameStore';
 import './App.scss';
 
 function App() {
-  const { cards, moves, openModal, resetGame, flipCard, initializeGame, timeElapsed } =
+  const { cards, moves, openModal, resetGame, setOpenModal, flipCard, initializeGame, timeElapsed } =
     useGameStore();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className='app' data-testid='memory-game-app'>
-      <Header onReset={resetGame} moves={moves} timeElapsed={timeElapsed} />
+      <Header onReset={resetGame} moves={moves} timeElapsed={timeElapsed} setOpenModal={setOpenModal} />
       <main>
         <CardGrid cards={cards} onCardFlip={flipCard} />
         {openModal && <SuccessModal />}

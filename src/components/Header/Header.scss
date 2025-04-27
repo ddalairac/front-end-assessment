@@ -4,7 +4,7 @@
 
 .header {
   background-color: $header-color;
-  color: $white;
+  color: white;
   padding: $spacing-sm;
   text-align: center;
   box-shadow: $shadow-sm;
@@ -34,11 +34,14 @@
 
   .reset-button {
     @include button-base;
-    background-color: $white;
-    color: $text-color;
+    background-color: transparent;
+
+    border: 2px solid white;
+    color: white;
 
     &:hover {
-      background-color: color.adjust($white, $lightness: -5%);
+      background-color: white;
+      color: $text-color;
     }
   }
 }

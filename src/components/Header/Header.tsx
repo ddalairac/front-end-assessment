@@ -1,17 +1,30 @@
 import './Header.scss';
 
 interface IHeaderProps {
-  onReset: () => void;
   moves: number;
   timeElapsed: string;
+  onReset: () => void;
+  setOpenModal: (openModal: boolean) => void;
 }
 
-const Header = ({ onReset, moves, timeElapsed }: IHeaderProps) => {
+const Header = ({
+  moves,
+  timeElapsed,
+  onReset,
+  setOpenModal,
+}: IHeaderProps) => {
   return (
     <>
       <header className='header' data-testid='game-header'>
         <h1>Memory Card Game</h1>
         <div className='header-controls'>
+          <button
+            className='reset-button'
+            data-testid='reset-button'
+            onClick={onReset}
+          >
+            Reset Game
+          </button>
           <span className='moves' data-testid='moves-counter'>
             Moves: {moves}
           </span>
@@ -21,9 +34,12 @@ const Header = ({ onReset, moves, timeElapsed }: IHeaderProps) => {
           <button
             className='reset-button'
             data-testid='reset-button'
-            onClick={onReset}
+            onClick={() => {
+              onReset();
+              setOpenModal(true);
+            }}
           >
-            Reset Game
+            Change level
           </button>
         </div>
       </header>
