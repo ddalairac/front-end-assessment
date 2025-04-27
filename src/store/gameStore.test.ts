@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useGameStore } from './gameStore';
-import { DifficultyType, ICard } from '../types';
-import { browserLog, canFlipCard, handleMatch, handleNoMatch, startTimer, stopTimer } from './gameAuxFuncions';
+import { ICard } from '../types';
+import { handleMatch, handleNoMatch, startTimer } from './gameAuxFuncions';
 
 // Mock the browserLog function
 vi.mock('./gameAuxFuncions', () => ({
